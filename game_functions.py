@@ -1,6 +1,7 @@
 import sys
 import pygame
 
+from alien import Alien
 from bullet import Bullet
 
 
@@ -53,7 +54,36 @@ def check_events(ai_settings, screen, ship, bullets):
             check_keyup_events(event, ship)
 
 
-def update_screen(ai_settings, screen, ship, bullets, alien):
+def get_number_aliens_x(ai_settings, alien_width):
+    """Determine the number of aliens that fit in a row."""
+    available_space_x = ai_settings.screen_width - 2 * alien_width
+    number_aliens_x = int(available_space_x / (2*alien_width))
+    return number_aliens_x
+
+
+def create_alien(ai_settings, screen, aliens, alien_number):
+    """Create an alien and place it in the row."""
+    alien = Alien(ai_settings, screen)
+    alien_width = alien.rect.width
+    alien.x = alien_width + 2 * alien_width * alien_number
+    alien.rect.x = alien.x
+    aliens.add(alien)
+
+
+def create_fleet(ai_settings, screen, aliens):
+    """ Create a full fleet of aliens."""
+    # Create an alien and find the number of aliens in a row.
+    # Spacing between each alien is equal to one alien width.
+    alien = Alien(ai_settings, screen)
+    number_aliens_x = get_number_aliens_x(ai_settings, alien.rect.width)
+
+    # Create the first row of aliens.
+    for alien_number in range(number_aliens_x):
+        # Create an alien an place it in the row.
+        create_alien(ai_settings, screen, aliens, alien_number)
+
+
+def update_screen(ai_settings, screen, ship, bullets, aliens):
     """Update images on the screen and flip to the new screen."""
     # Redaw the screen during each pass through the loop.
     screen.fill(ai_settings.bg_color)
@@ -63,7 +93,7 @@ def update_screen(ai_settings, screen, ship, bullets, alien):
         bullet.draw_bullet()
 
     ship.blitme()
-    alien.blitme()
+    aliens.draw(screen)
 
     # Make the most recently drawn screen visible
     pygame.display.flip()
