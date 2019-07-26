@@ -7,4 +7,10 @@ Alien invasion is a fun and simple shooting game.
 * To install pygame simply run:
 
     ```pip install pygame```
+* Then run ```python alien_invasion.py```
 
+# Game control
+* &#8592; To move left
+* &#8594; to move right
+* `spacebar` to shoot
+* `q` to quit the game
