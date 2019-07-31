@@ -14,3 +14,7 @@ Alien invasion is a fun and simple shooting game.
 * &#8594; to move right
 * `spacebar` to shoot
 * `q` to quit the game
+
+
+# Credits
+Images used in this game from [Pixabay](https://pixabay.com/) .
